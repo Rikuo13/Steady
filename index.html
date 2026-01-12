@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steady - Habit Dashboard</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-chart-line"></i> Steady
+            </div>
+            <div style="display: flex; align-items: center;">
+                <div class="date-display" id="currentDate">Mock Date</div>
+                <button class="btn-theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Overview -->
+        <section class="stats-grid">
+            <div class="stat-card animate-enter" style="animation-delay: 0.1s">
+                <div class="stat-label">Global Progress</div>
+                <div class="stat-value" id="globalProgress">0%</div>
+                <div class="stat-sub">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span id="globalTrend">+5% vs last week</span>
+                </div>
+            </div>
+
+            <div class="stat-card animate-enter" style="animation-delay: 0.2s">
+                <div class="stat-label">Completed Habits</div>
+                <div class="stat-value" id="completedCount">0</div>
+                <div class="stat-sub">
+                    <span class="text-muted">Today's total</span>
+                </div>
+            </div>
+
+            <div class="stat-card animate-enter" style="animation-delay: 0.3s">
+                <div class="stat-label">Daily Goal</div>
+                <div class="stat-value">85%</div>
+                <div class="stat-sub">
+                    <span class="text-muted">Target completion</span>
+                </div>
+            </div>
+
+            <div class="stat-card animate-enter" style="animation-delay: 0.4s">
+                <div class="stat-label">Streak</div>
+                <div class="stat-value" id="streakCount">0</div>
+                <div class="stat-sub">
+                    <span style="color: #fbbf24"><i class="fa-solid fa-fire"></i> Day streak</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visualization -->
+        <section class="charts-container animate-enter" style="animation-delay: 0.5s">
+            <div class="chart-wrapper">
+                <div class="chart-header">
+                    <div class="chart-title">Daily Performance</div>
+                    <select id="chartPeriod" style="background:transparent; color: var(--text-muted); border: none;">
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                    </select>
+                </div>
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <div class="chart-header">
+                    <div class="chart-title">Category Distribution</div>
+                </div>
+                <!-- Flex container to center doughnut chart -->
+                <div style="height: 85%; display: flex; justify-content: center; align-items: center;">
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Habit Table -->
+        <section class="tracker-container animate-enter" style="animation-delay: 0.6s">
+            <div class="tracker-header">
+                <h2>Habit Tracker</h2>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn-add" id="addHabitBtn">
+                        <i class="fa-solid fa-plus"></i> New Habit
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table id="habitTable">
+                    <thead>
+                        <!-- JS renders headers here -->
+                    </thead>
+                    <tbody>
+                        <!-- JS renders rows here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Add Habit Modal -->
+    <div class="modal-overlay" id="addHabitModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">Add New Habit</h3>
+            <div class="form-group">
+                <label class="form-label">Habit Name</label>
+                <input type="text" id="habitNameInput" class="form-input" placeholder="e.g. Read 10 pages">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Category</label>
+                <select id="habitCategoryInput" class="form-input">
+                    <option value="Health">Health</option>
+                    <option value="Work">Work</option>
+                    <option value="Growth">Growth</option>
+                    <option value="Mind">Mind</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Monthly Goal (Days)</label>
+                <input type="number" id="habitGoalInput" class="form-input" value="20" min="1" max="31">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="closeModalBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveHabitBtn">Save Habit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
